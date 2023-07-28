@@ -5,6 +5,25 @@ namespace CourseStore.Model.Courses.Entities;
 
 public class Course : BaseEntity
 {
+    public Course()
+    {
+        
+    }
+    public Course(string title, string shortDescription, string description, DateTime startDate, DateTime endTime, int price, string imageUrl, ICollection<CourseTag> courseTags, ICollection<CourseTeacher> courseTeachers, ICollection<CourseComment> courseComments, byte[] rowVersion)
+    {
+        Title = title;
+        ShortDescription = shortDescription;
+        Description = description;
+        StartDate = startDate;
+        EndTime = endTime;
+        Price = price;
+        ImageUrl = imageUrl;
+        CourseTags = courseTags;
+        CourseTeachers = courseTeachers;
+        CourseComments = courseComments;
+        RowVersion = rowVersion;
+    }
+
     public string Title { get; set; }
     public string ShortDescription { get; set; }
     public string Description { get; set; }

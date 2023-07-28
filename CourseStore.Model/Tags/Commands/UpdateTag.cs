@@ -7,6 +7,12 @@ namespace CourseStore.Model.Tags.Commands;
 
 public class UpdateTag : IRequest<ApiResult<Tag>>
 {
+    public UpdateTag(int id, string tagName)
+    {
+        Id = id;
+        TagName = tagName;
+    }
+
     [Required, Range(1, int.MaxValue)]
     public int Id { get; set; }
     [Required, StringLength(50, MinimumLength = 2)]

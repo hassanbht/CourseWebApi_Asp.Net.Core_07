@@ -12,7 +12,7 @@ var cnnString = builder.Configuration.GetConnectionString("StoreCnn");
 builder.Services.AddDbContext<CourseStoreDbContext>(c=> c.UseSqlServer(cnnString).
     AddInterceptors(new AddAuditFieldInterceptor()));
 
-builder.Services.AddMediatR(typeof(CreateTagHandler).Assembly);
+builder.Services.AddMediatR(typeof(CreateCoursesHandler).Assembly);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

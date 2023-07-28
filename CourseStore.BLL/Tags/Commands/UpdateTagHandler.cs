@@ -2,6 +2,7 @@
 using CourseStore.DAL.Contexts;
 using CourseStore.Model.Tags.Commands;
 using CourseStore.Model.Tags.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace CourseStore.BLL.Tags.Commands;
 
@@ -12,7 +13,7 @@ public class UpdateTagHandler : BaseApplicationServiceHandler<UpdateTag, Tag>
     }
     protected override async Task HandleRequest(UpdateTag request, CancellationToken cancellationToken)
     {
-        Tag tag = _courseStoreDbContext.Tags.SingleOrDefault(c => c.Id == request.Id);
+        Tag? tag = await _courseStoreDbContext.Tags.SingleOrDefaultAsync(c => c.Id == request.Id, cancellationToken: cancellationToken);
         if (tag == null)
         {
             AddError($"تگ با شناسه {request.Id} یافت نشد");

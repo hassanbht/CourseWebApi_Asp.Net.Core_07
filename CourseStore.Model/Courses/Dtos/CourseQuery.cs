@@ -1,16 +1,28 @@
 ﻿using CourseStore.Model.Courses.Entities;
 using CourseStore.Model.Tags.Entities;
 using CourseStore.Model.Teachers.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CourseWebApi.Model.Teachers.Entities;
 
 namespace CourseWebApi.Model.Courses.Dtos
 {
     public class CourseQuery
     {
+        public CourseQuery(int id, string title, string shortDescription, string description, DateTime startDate, DateTime endTime, int price, string imageUrl, List<Tag> tags, List<Teacher> teachers, List<CourseComment> comments, byte[] rowVersion)
+        {
+            Id = id;
+            Title = title;
+            ShortDescription = shortDescription;
+            Description = description;
+            StartDate = startDate;
+            EndTime = endTime;
+            Price = price;
+            ImageUrl = imageUrl;
+            Tags = tags;
+            Teachers = teachers;
+            Comments = comments;
+            RowVersion = rowVersion;
+        }
+
         public int Id { get; set; }
         public string Title { get; set; }
         public string ShortDescription { get; set; }
@@ -24,4 +36,6 @@ namespace CourseWebApi.Model.Courses.Dtos
         public List<CourseComment> Comments { get; set; }
         public Byte[] RowVersion { get; set; }
     }
+
+   
 }

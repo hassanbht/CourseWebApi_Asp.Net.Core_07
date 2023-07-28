@@ -27,7 +27,7 @@ public class TagsController : BaseController
 
 
     [HttpGet("SearchTag")]
-    public async Task<IActionResult> SearchTag([FromQuery] FilterByName tag)
+    public async Task<IActionResult> SearchTag([FromQuery] FilterTagByName tag)
     {
         var response = await _mediator.Send(tag);
         return response.IsSuccess ? Ok(response.Result) : BadRequest(response.Errors);

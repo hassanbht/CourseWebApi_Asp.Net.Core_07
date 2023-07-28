@@ -19,15 +19,15 @@ public class AddAuditFieldInterceptor : SaveChangesInterceptor
         DateTime now = DateTime.Now;
         foreach (var item in addedEntities!)
         {
-            item.Property("CreateBy").CurrentValue = true;
-            item.Property("UpdateBy").CurrentValue = true;
+            item.Property("CreateBy").CurrentValue = "1";
+            item.Property("UpdateBy").CurrentValue = "1";
             item.Property("CreateDate").CurrentValue = now;
             item.Property("UpdateDate").CurrentValue = now;
         }
 
         foreach (var item in modifiedEntities!)
         {
-            item.Property("UpdateBy").CurrentValue = true;
+            item.Property("UpdateBy").CurrentValue = "1";
             item.Property("UpdateDate").CurrentValue = now;
         }
     }

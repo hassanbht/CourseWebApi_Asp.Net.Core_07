@@ -11,6 +11,7 @@ public class OrderConfig : IEntityTypeConfiguration<Order>
         builder.Property(o => o.CustomerEmail).IsRequired().HasMaxLength(100);
         builder.Property(o => o.OrderDate).IsRequired().HasDefaultValueSql("GETDATE()");
         builder.Property(o => o.Price).IsRequired();
+        builder.Property(o => o.CustomerEmail).HasMaxLength(100).IsUnicode(false);
 
     }
 }

@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Courses\" />
     <Folder Include="Teachers\" />
     <Folder Include="Orders\" />
   </ItemGroup>
