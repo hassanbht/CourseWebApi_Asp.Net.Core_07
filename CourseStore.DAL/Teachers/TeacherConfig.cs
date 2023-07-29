@@ -10,7 +10,6 @@ public class TeacherConfig : IEntityTypeConfiguration<Teacher>
     {       
         builder.Property(t => t.FirstName).IsRequired().HasMaxLength(50).IsUnicode();
         builder.Property(t => t.LastName).IsRequired().HasMaxLength(50).IsUnicode();
-        builder.Property(c => c.FullName).HasComputedColumnSql("FirstName + ' ' + LastName", true).IsUnicode();
-        
+        builder.Property(c => c.FullName).HasComputedColumnSql("FirstName + ' ' + LastName", true).IsUnicode();        
     }
 }

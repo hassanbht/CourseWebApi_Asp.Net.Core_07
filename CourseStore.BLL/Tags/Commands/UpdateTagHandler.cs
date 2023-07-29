@@ -13,15 +13,15 @@ public class UpdateTagHandler : BaseApplicationServiceHandler<UpdateTag, Tag>
     }
     protected override async Task HandleRequest(UpdateTag request, CancellationToken cancellationToken)
     {
-        Tag? tag = await _courseStoreDbContext.Tags.SingleOrDefaultAsync(c => c.Id == request.Id, cancellationToken: cancellationToken);
+        Tag? tag = await _courseStoreDbContext.Tags.SingleOrDefaultAsync(c => c.Id == request.TagId, cancellationToken: cancellationToken);
         if (tag == null)
         {
-            AddError($"تگ با شناسه {request.Id} یافت نشد");
+            AddError($"تگ با شناسه {request.TagId} یافت نشد");
         }
         else
         {
             tag.TagName = request.TagName;
-            await _courseStoreDbContext.SaveChangesAsync();
+            await _courseStoreDbContext.SaveChangesAsync(cancellationToken);
             AddResult(tag);
         }
     }

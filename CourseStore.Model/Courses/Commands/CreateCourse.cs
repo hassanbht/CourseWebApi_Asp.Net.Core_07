@@ -9,7 +9,7 @@ namespace CourseWebApi.Model.Courses.Commands
 {
     public class CreateCourse : IRequest<ApiResult<Course>>
     {
-        public CreateCourse(string title, string shortDescription, string description, DateTime startDate, DateTime endTime, int price, string imageUrl, ICollection<Tag> courseTags, ICollection<Teacher> courseTeachers, ICollection<CourseComment> courseComments)
+        public CreateCourse(string title, string shortDescription, string description, DateTime startDate, DateTime endTime, int price, string imageUrl, ICollection<CourseTag> courseTags, ICollection<CourseTeacher> courseTeachers, ICollection<CourseComment> courseComments)
         {
             Title = title;
             ShortDescription = shortDescription;
@@ -36,8 +36,8 @@ namespace CourseWebApi.Model.Courses.Commands
         public int Price { get; set; }
         [Required, StringLength(1000, MinimumLength = 2)]
         public string ImageUrl { get; set; }
-        public ICollection<Tag> CourseTags { get; set; }
-        public ICollection<Teacher> CourseTeachers { get; set; }
+        public ICollection<CourseTag> CourseTags { get; set; }
+        public ICollection<CourseTeacher> CourseTeachers { get; set; }
         public ICollection<CourseComment> CourseComments { get; set; }
     }
 }

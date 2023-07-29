@@ -3,6 +3,7 @@ using CourseStore.DAL.Framework;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 using CourseStore.BLL.Tags.Commands;
+using CourseWebApi.Model.Tags.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(TagProfile).Assembly);
 
 var app = builder.Build();
 

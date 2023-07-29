@@ -14,8 +14,8 @@ public class CreateCoursesHandler : BaseApplicationServiceHandler<CreateTag, Tag
     protected override async Task HandleRequest(CreateTag request, CancellationToken cancellationToken)
     {
         Tag tag = new Tag(request.TagName);
-        await _courseStoreDbContext.Tags.AddAsync(tag);
-        await _courseStoreDbContext.SaveChangesAsync();
+        await _courseStoreDbContext.Tags.AddAsync(tag,cancellationToken);
+        await _courseStoreDbContext.SaveChangesAsync(cancellationToken);
         AddResult(tag);
     }
 }
