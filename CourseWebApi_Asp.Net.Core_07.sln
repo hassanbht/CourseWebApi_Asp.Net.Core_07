@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseWebApi.Core", "CourseWebApi.Core\CourseWebApi.Core.csproj", "{62D6DA99-BDA8-4747-84CC-E0CE56A6871B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{EBB0E3E8-2A76-4304-93B9-D9637A3A69ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBB0E3E8-2A76-4304-93B9-D9637A3A69ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBB0E3E8-2A76-4304-93B9-D9637A3A69ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62D6DA99-BDA8-4747-84CC-E0CE56A6871B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62D6DA99-BDA8-4747-84CC-E0CE56A6871B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62D6DA99-BDA8-4747-84CC-E0CE56A6871B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62D6DA99-BDA8-4747-84CC-E0CE56A6871B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
