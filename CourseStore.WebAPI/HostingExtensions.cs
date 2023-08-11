@@ -3,10 +3,15 @@ using CourseStore.DAL.Contexts;
 using CourseStore.DAL.Framework;
 using CourseWebApi.Core.Infra;
 using CourseWebApi.DAL.Caching;
+using CourseWebApi.Model.Framework;
 using CourseWebApi.Model.Tags.Profiles;
 using CourseWebApi.WebAPI.Middleware;
+using CourseWebApi.WebAPI.Options;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace CourseWebApi.WebAPI
 {
@@ -34,6 +39,35 @@ namespace CourseWebApi.WebAPI
             {
                 options.Configuration = builder.Configuration.GetConnectionString("RedisDatabase");
             });
+            #endregion
+
+            #region JwtOptions
+            JwtOptions jwtOptions = new JwtOptions();
+            builder.Configuration.GetSection("JwtOptions").Bind(jwtOptions);
+            builder.Services.AddSingleton<JwtOptions>(jwtOptions);
+
+            //Configuring the Authentication Service
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opts =>
+                {
+                    //convert the string signing key to byte array
+                    byte[] signingKeyBytes = Encoding.UTF8
+                        .GetBytes(jwtOptions.SigningKey);
+
+                    opts.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = jwtOptions.Issuer,
+                        ValidAudience = jwtOptions.Audience,
+                        IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)                        
+                    };
+                });
+
+            // Configuring the Authorization Service
+            builder.Services.AddAuthorization();
             #endregion
 
             #region validators
@@ -73,8 +107,9 @@ namespace CourseWebApi.WebAPI
             }
 
             app.UseHttpsRedirection();
-
+            app.UseAuthentication();
             app.UseAuthorization();
+
 
             app.MapControllers();
             return app;
