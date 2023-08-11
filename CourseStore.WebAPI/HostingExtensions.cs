@@ -6,11 +6,12 @@ using CourseWebApi.DAL.Caching;
 using CourseWebApi.Model.Framework;
 using CourseWebApi.Model.Tags.Profiles;
 using CourseWebApi.WebAPI.Middleware;
-using CourseWebApi.WebAPI.Options;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Serilog;
 using System.Text;
 
 namespace CourseWebApi.WebAPI
@@ -41,6 +42,10 @@ namespace CourseWebApi.WebAPI
             });
             #endregion
 
+            #region UserSecrets
+            builder.Configuration.AddUserSecrets("427c907a-7762-476b-a42f-c0b7b597120e");
+            #endregion
+
             #region JwtOptions
             JwtOptions jwtOptions = new JwtOptions();
             builder.Configuration.GetSection("JwtOptions").Bind(jwtOptions);
@@ -62,12 +67,22 @@ namespace CourseWebApi.WebAPI
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = jwtOptions.Issuer,
                         ValidAudience = jwtOptions.Audience,
-                        IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)                        
+                        IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
                     };
                 });
 
             // Configuring the Authorization Service
             builder.Services.AddAuthorization();
+            #endregion
+
+
+            #region Serilog
+            builder.Host.UseSerilog((ctx, lc) => lc
+               .MinimumLevel.Debug()
+               .WriteTo.File(@"f:\log\log.txt", rollingInterval: RollingInterval.Day)
+               .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] ({Application}/{MachineName}/{ThreadId}{NewLine}) {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}")
+               .Enrich.FromLogContext()
+               .ReadFrom.Configuration(ctx.Configuration));
             #endregion
 
             #region validators
@@ -87,7 +102,33 @@ namespace CourseWebApi.WebAPI
             #region Swagger
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(opt =>
+            {
+                opt.SwaggerDoc("v1", new OpenApiInfo { Title = "RefreshTokenExample", Version = "v1" });
+                opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                });
+                opt.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+                    }
+                });
+            });
             builder.Services.AddAutoMapper(typeof(TagProfile).Assembly);
             #endregion
             return builder.Build();
