@@ -8,11 +8,13 @@ using CourseWebApi.Model.Tags.Profiles;
 using CourseWebApi.WebAPI.Middleware;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace CourseWebApi.WebAPI
 {
@@ -46,6 +48,12 @@ namespace CourseWebApi.WebAPI
             builder.Configuration.AddUserSecrets("427c907a-7762-476b-a42f-c0b7b597120e");
             #endregion
 
+            #region JsonOptions
+            builder.Services.Configure<JsonOptions>(c =>
+            {
+                c.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+            });
+            #endregion
             #region JwtOptions
             JwtOptions jwtOptions = new JwtOptions();
             builder.Configuration.GetSection("JwtOptions").Bind(jwtOptions);
@@ -83,6 +91,10 @@ namespace CourseWebApi.WebAPI
                .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] ({Application}/{MachineName}/{ThreadId}{NewLine}) {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}")
                .Enrich.FromLogContext()
                .ReadFrom.Configuration(ctx.Configuration));
+            #endregion
+
+            #region Seq log
+            builder.Logging.AddSeq("http://localhost:5342/");
             #endregion
 
             #region validators
