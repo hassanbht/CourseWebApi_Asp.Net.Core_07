@@ -1,6 +1,5 @@
 ﻿using CourseStore.DAL.Contexts;
 using CourseStore.Model.Framework;
-using CourseWebApi.BLL.Infra;
 
 namespace CourseWebApi.DAL.Repositories
 {

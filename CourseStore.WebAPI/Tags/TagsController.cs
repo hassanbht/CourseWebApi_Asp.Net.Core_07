@@ -2,10 +2,11 @@
 using CourseStore.Model.Tags.Queries;
 using CourseStore.WebAPI.Framework;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CourseStore.WebAPI.Tags;
-
+[Authorize]
 public class TagsController : BaseController
 {
     public TagsController(IMediator mediator) : base(mediator)

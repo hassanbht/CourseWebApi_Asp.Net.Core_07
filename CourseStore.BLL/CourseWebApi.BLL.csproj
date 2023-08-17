@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CourseStore.DAL\CourseWebApi.DAL.csproj" />
+    <ProjectReference Include="..\CourseStore.Model\CourseWebApi.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>

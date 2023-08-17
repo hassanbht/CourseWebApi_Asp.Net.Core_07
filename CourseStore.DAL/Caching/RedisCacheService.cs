@@ -1,4 +1,4 @@
-﻿using CourseWebApi.Core.Infra;
+﻿
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text;
 using System.Text.Json;
@@ -61,4 +61,5 @@ namespace CourseWebApi.DAL.Caching
             return value;
         }
     }
+
 }

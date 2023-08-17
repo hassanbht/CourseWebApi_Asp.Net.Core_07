@@ -1,4 +1,8 @@
-﻿using CourseWebApi.Model.Framework;
+﻿using CourseStore.Model.Framework;
+using CourseWebApi.Model.Auth.Commands;
+using CourseWebApi.Model.Auth.Dtos;
+using CourseWebApi.Model.Auth.Queries;
+using CourseWebApi.Model.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +14,12 @@ namespace CourseWebApi.BLL.Infra
 {
     public interface IAuthService
     {
-        string SecretKey { get; set; }
+        Task<AuthenticationResponse> LoginAsync(LoginCommand user);
+        Task<AuthenticationResponse> RegisterAsync(CreateUserCommand user);
+        Task<string> RevokeUserAsync(string userName);
+        Task RevokeAllAsync();
+        Task<TokenModel> RefreshTokenAsync(TokenQueriy token);
 
-        bool IsTokenValid(string token);
-        string GenerateToken(JwtOptions options);
-        IEnumerable<Claim> GetTokenClaims(string token);
 
     }
 }

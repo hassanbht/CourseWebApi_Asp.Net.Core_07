@@ -6,9 +6,9 @@ namespace CourseWebApi.Model.Framework
     {
         public string Issuer { get; set; }
         public string Audience { get; set; }
-        public string SigningKey { get; set; }
-        public int ExpirationSeconds { get; set; }
-        public string SecurityAlgorithm { get; set; }
+        public string Secret { get; set; }
+        public string TokenValidityInMinutes { get; set; }
+        public string RefreshTokenValidityInDays { get; set; }
         public Claim[] Claims { get; set; }
     }
 }

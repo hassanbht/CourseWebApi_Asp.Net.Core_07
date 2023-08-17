@@ -1,20 +1,24 @@
 ﻿using CourseStore.BLL.Tags.Commands;
 using CourseStore.DAL.Contexts;
 using CourseStore.DAL.Framework;
-using CourseWebApi.Core.Infra;
+using CourseWebApi.BLL.Auth;
+using CourseWebApi.BLL.Infra;
+using CourseWebApi.BLL.JWT;
 using CourseWebApi.DAL.Caching;
+using CourseWebApi.DAL.DbContexts;
+using CourseWebApi.Model.Auth.Entities;
 using CourseWebApi.Model.Framework;
 using CourseWebApi.Model.Tags.Profiles;
 using CourseWebApi.WebAPI.Middleware;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using System.Reflection;
 using System.Text;
-using System.Text.Json.Serialization;
 
 namespace CourseWebApi.WebAPI
 {
@@ -22,16 +26,17 @@ namespace CourseWebApi.WebAPI
     {
         public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
         {
+            ConfigurationManager configuration = builder.Configuration;
             // Add services to the container.
             #region Data
-            // Get Connection String from appsetting
-            string? cnnString = builder.Configuration.GetConnectionString("SqlDataBaseConnection");
-            builder.Services.AddDbContext<CourseStoreDbContext>(c => c.UseSqlServer(cnnString!).
+            builder.Services.AddDbContext<CourseStoreDbContext>(c => c.UseSqlServer(configuration.GetConnectionString("SqlDataBaseConnection")!).
                 AddInterceptors(new AddAuditFieldInterceptor()));
+            builder.Services.AddDbContext<AuthDbContext>(c => c.UseSqlServer(configuration.GetConnectionString("JWTConnection")!));
+
             #endregion
 
             #region CQRS
-            builder.Services.AddMediatR(typeof(CreateCoursesHandler).Assembly);
+            builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCoursesHandler).Assembly));
             #endregion
 
             #region cache
@@ -48,39 +53,44 @@ namespace CourseWebApi.WebAPI
             builder.Configuration.AddUserSecrets("427c907a-7762-476b-a42f-c0b7b597120e");
             #endregion
 
-            #region JsonOptions
-            builder.Services.Configure<JsonOptions>(c =>
-            {
-                c.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-            });
+            #region Identity
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                    .AddEntityFrameworkStores<AuthDbContext>()
+                    .AddDefaultTokenProviders();
+            builder.Services.AddScoped<IIdentity, IdentityService>();
+            builder.Services.AddScoped<IAuthService, JWTService>();            
             #endregion
             #region JwtOptions
             JwtOptions jwtOptions = new JwtOptions();
             builder.Configuration.GetSection("JwtOptions").Bind(jwtOptions);
             builder.Services.AddSingleton<JwtOptions>(jwtOptions);
 
-            //Configuring the Authentication Service
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(opts =>
-                {
-                    //convert the string signing key to byte array
-                    byte[] signingKeyBytes = Encoding.UTF8
-                        .GetBytes(jwtOptions.SigningKey);
-
-                    opts.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = jwtOptions.Issuer,
-                        ValidAudience = jwtOptions.Audience,
-                        IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
-                    };
-                });
-
             // Configuring the Authorization Service
-            builder.Services.AddAuthorization();
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+
+             // Adding Jwt Bearer
+             .AddJwtBearer(options =>
+             {
+                 options.SaveToken = true;
+                 options.RequireHttpsMetadata = false;
+                 options.TokenValidationParameters = new TokenValidationParameters()
+                 {
+                     ValidateIssuer = true,
+                     ValidateAudience = true,
+                     ValidateLifetime = true,
+                     ValidateIssuerSigningKey = true,
+                     ClockSkew = TimeSpan.Zero,
+                     ValidIssuer = jwtOptions.Issuer,
+                     ValidAudience = jwtOptions.Audience,
+                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Secret))
+                 };
+             });
+
             #endregion
 
 
