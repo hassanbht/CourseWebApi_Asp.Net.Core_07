@@ -6,18 +6,18 @@ using CourseWebApi.BLL.Infra;
 using CourseWebApi.BLL.JWT;
 using CourseWebApi.DAL.Caching;
 using CourseWebApi.DAL.DbContexts;
+using CourseWebApi.DAL.Framework;
+using CourseWebApi.DAL.Repositories;
 using CourseWebApi.Model.Auth.Entities;
 using CourseWebApi.Model.Framework;
 using CourseWebApi.Model.Tags.Profiles;
 using CourseWebApi.WebAPI.Middleware;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using System.Reflection;
 using System.Text;
 
 namespace CourseWebApi.WebAPI
@@ -32,7 +32,7 @@ namespace CourseWebApi.WebAPI
             builder.Services.AddDbContext<CourseStoreDbContext>(c => c.UseSqlServer(configuration.GetConnectionString("SqlDataBaseConnection")!).
                 AddInterceptors(new AddAuditFieldInterceptor()));
             builder.Services.AddDbContext<AuthDbContext>(c => c.UseSqlServer(configuration.GetConnectionString("JWTConnection")!));
-
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(RepositoryDbContext<>));
             #endregion
 
             #region CQRS
@@ -54,11 +54,22 @@ namespace CourseWebApi.WebAPI
             #endregion
 
             #region Identity
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(c =>
+            {
+                c.Password.RequiredLength = 8;
+                c.Password.RequiredUniqueChars = 2;
+                c.Password.RequireNonAlphanumeric = true;
+                c.Password.RequireUppercase = true;
+                c.Password.RequireLowercase = true;
+                c.Password.RequireDigit = true;
+                c.User.RequireUniqueEmail = true;
+            })
                     .AddEntityFrameworkStores<AuthDbContext>()
-                    .AddDefaultTokenProviders();
+                    .AddDefaultTokenProviders()
+                    .AddPasswordValidator<UsernameInPasswordValidator>();
+
             builder.Services.AddScoped<IIdentity, IdentityService>();
-            builder.Services.AddScoped<IAuthService, JWTService>();            
+            builder.Services.AddScoped<IAuthService, JWTService>();
             #endregion
             #region JwtOptions
             JwtOptions jwtOptions = new JwtOptions();
