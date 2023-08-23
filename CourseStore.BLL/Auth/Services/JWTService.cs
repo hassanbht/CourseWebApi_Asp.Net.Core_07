@@ -1,9 +1,9 @@
-﻿using CourseWebApi.BLL.Infra;
-using CourseWebApi.Model.Auth.Commands;
+﻿using CourseWebApi.Model.Auth.Commands;
 using CourseWebApi.Model.Auth.Dtos;
 using CourseWebApi.Model.Auth.Entities;
 using CourseWebApi.Model.Auth.Queries;
 using CourseWebApi.Model.Framework;
+using CourseWebApi.Model.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -11,7 +11,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace CourseWebApi.BLL.JWT
+namespace CourseWebApi.BLL.Auth.Services
 {
     public class JWTService : IAuthService
     {
@@ -23,9 +23,9 @@ namespace CourseWebApi.BLL.JWT
         public JWTService(IIdentity userManager,
             RoleManager<IdentityRole> roleManager, JwtOptions jwtOptions)
         {
-            this._userManager = userManager;
+            _userManager = userManager;
             //this._roleManager = roleManager;
-            this._jwtOptions = jwtOptions;
+            _jwtOptions = jwtOptions;
         }
 
 

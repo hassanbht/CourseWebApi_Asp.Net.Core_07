@@ -1,12 +1,7 @@
 ﻿using CourseWebApi.Model.Auth.Entities;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CourseWebApi.BLL.Infra
+namespace CourseWebApi.Model.Services
 {
     public interface IIdentity
     {

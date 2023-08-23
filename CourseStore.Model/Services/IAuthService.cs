@@ -1,16 +1,8 @@
-﻿using CourseStore.Model.Framework;
-using CourseWebApi.Model.Auth.Commands;
+﻿using CourseWebApi.Model.Auth.Commands;
 using CourseWebApi.Model.Auth.Dtos;
 using CourseWebApi.Model.Auth.Queries;
-using CourseWebApi.Model.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CourseWebApi.BLL.Infra
+namespace CourseWebApi.Model.Services
 {
     public interface IAuthService
     {

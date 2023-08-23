@@ -1,9 +1,6 @@
 ﻿using CourseStore.Model.Framework;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
 
-namespace CourseWebApi.DAL.Repositories
+namespace CourseWebApi.Model.Repositories
 {
     public interface IRepository<in T> : IDisposable where T : BaseEntity
     {
@@ -12,6 +9,6 @@ namespace CourseWebApi.DAL.Repositories
         void Add(T entity);
         void Update(T entity);
         Task AddAsync(T entity, CancellationToken cancellationToken);
-       
+
     }
 }

@@ -1,14 +1,10 @@
-﻿using CourseWebApi.BLL.Infra;
+﻿
 using CourseWebApi.Model.Auth.Entities;
+using CourseWebApi.Model.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CourseWebApi.BLL.Auth
+namespace CourseWebApi.BLL.Auth.Services
 {
     public class IdentityService : IIdentity
     {
@@ -16,7 +12,7 @@ namespace CourseWebApi.BLL.Auth
 
         public IdentityService(UserManager<ApplicationUser> userManager)
         {
-            this._userManager = userManager;
+            _userManager = userManager;
         }
 
         public async Task<ApplicationUser?> FindByNameAsync(string userName)
@@ -28,19 +24,19 @@ namespace CourseWebApi.BLL.Auth
         {
             return await _userManager.CreateAsync(user, password);
         }
-              
+
 
         public async Task<IdentityResult> UpdateAsync(ApplicationUser user)
         {
-           return await _userManager.UpdateAsync(user);
+            return await _userManager.UpdateAsync(user);
         }
 
-        public async  Task<bool> CheckPasswordAsync(ApplicationUser user, string password)
+        public async Task<bool> CheckPasswordAsync(ApplicationUser user, string password)
         {
             return await _userManager.CheckPasswordAsync(user, password);
         }
 
-        public  async Task<IList<string>> GetRolesAsync(ApplicationUser user)
+        public async Task<IList<string>> GetRolesAsync(ApplicationUser user)
         {
             return await _userManager.GetRolesAsync(user);
         }

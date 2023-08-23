@@ -1,17 +1,17 @@
 ﻿using CourseStore.DAL.Contexts;
 using CourseStore.Model.Framework;
+using CourseWebApi.Model.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-using System.Security.Principal;
 
 namespace CourseWebApi.DAL.Repositories
 {
-    public class RepositoryDbContext<T> : IRepository<T> where T :  BaseEntity
+    public class RepositoryDbContext<T> : IRepository<T> where T : BaseEntity
     {
         private readonly CourseStoreDbContext courseStoreDb;
         private DbSet<T> _entities;
-        public RepositoryDbContext(CourseStoreDbContext courseStoreDb) 
-        { this.courseStoreDb = courseStoreDb;
+        public RepositoryDbContext(CourseStoreDbContext courseStoreDb)
+        {
+            this.courseStoreDb = courseStoreDb;
             this._entities = courseStoreDb.Set<T>();
         }
 
@@ -22,12 +22,12 @@ namespace CourseWebApi.DAL.Repositories
         public int SaveChanges() => courseStoreDb.SaveChanges();
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken) => await courseStoreDb.SaveChangesAsync(cancellationToken);
 
-                public void Dispose()
+        public void Dispose()
         {
             courseStoreDb.Dispose();
             GC.SuppressFinalize(this);
         }
 
-       
+
     }
 }

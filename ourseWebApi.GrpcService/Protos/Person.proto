@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option csharp_namespace = "CourseWebApi.GrpcService.Protos";
+
+import "google/protobuf/empty.proto";
+
+service Person{
+	rpc CreatePerson(stream CreatePersonRequest) returns (stream PersonReply);
+	rpc UpdatePerson(UpdatePersonRequest) returns (google.protobuf.Empty);
+	rpc DeletePerson(stream PersonByIdRequest) returns (google.protobuf.Empty);
+	rpc GetPersonById(PersonByIdRequest) returns (PersonReply);
+	rpc GetAll(google.protobuf.Empty) returns (stream PersonReply);
+}
+
+message CreatePersonRequest{
+	string FirstName=1;
+	string LastName=2;
+}
+
+message UpdatePersonRequest{
+	int32 Id=1;
+	string FirstName=2;
+	string LastName=3;
+}
+
+message PersonByIdRequest{
+		int32 ID=1;
+}
+
+message PersonReply{
+	int32 Id=1;
+	string FirstName=2;
+	string LastName=3;
+}
