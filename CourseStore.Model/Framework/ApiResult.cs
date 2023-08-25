@@ -22,4 +22,5 @@ public class ApiResult
 public class ApiResult<TResult>: ApiResult
 {
     public TResult? Result { get; set; }
+    public ICollection<TResult> ListResult { get; set; }
 }

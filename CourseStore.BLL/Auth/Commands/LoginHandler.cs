@@ -4,9 +4,9 @@ using CourseStore.Model.Courses.Entities;
 using CourseStore.Model.Tags.Commands;
 using CourseStore.Model.Tags.Entities;
 using CourseWebApi.BLL.Framework;
-using CourseWebApi.BLL.Infra;
 using CourseWebApi.Model.Auth.Commands;
 using CourseWebApi.Model.Auth.Dtos;
+using CourseWebApi.Model.Services;
 
 namespace CourseStore.BLL.Tags.Commands;
 

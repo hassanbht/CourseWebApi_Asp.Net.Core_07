@@ -1,5 +1,5 @@
 ﻿using CourseStore.Model.Framework;
-using CourseWebApi.BLL.Infra;
+using CourseWebApi.Model.Services;
 using MediatR;
 
 namespace CourseWebApi.BLL.Framework

@@ -1,18 +1,22 @@
-﻿using CourseStore.DAL.Contexts;
-using CourseStore.Model.Framework;
+﻿using CourseStore.Model.Framework;
+using CourseWebApi.Model.Repositories;
 using MediatR;
 
 namespace CourseStore.BLL.Framework;
 
 public abstract class BaseApplicationServiceHandler<TRequest, TResult> : IRequestHandler<TRequest, ApiResult<TResult>>
-    where TRequest : IRequest<ApiResult<TResult>>
+    where TRequest : IRequest<ApiResult<TResult>> where TResult : BaseEntity
 {
-    protected readonly CourseStoreDbContext _courseStoreDbContext;
+
+    protected readonly IRepository<TResult> _repository;
     protected ApiResult<TResult> _response = new ApiResult<TResult> { };
-    public BaseApplicationServiceHandler(CourseStoreDbContext courseStoreDbContext)
+
+
+    public BaseApplicationServiceHandler(IRepository<TResult> repository)
     {
-        _courseStoreDbContext = courseStoreDbContext;
+        this._repository = repository;
     }
+
 
     public async Task<ApiResult<TResult>> Handle(TRequest request, CancellationToken cancellationToken)
     {
@@ -28,5 +32,8 @@ public abstract class BaseApplicationServiceHandler<TRequest, TResult> : IReques
 
     public void AddResult(TResult result) =>
         _response.Result = result;
+
+    public void AddListResult(ICollection<TResult> result) =>
+      _response.ListResult = result;
 
 }

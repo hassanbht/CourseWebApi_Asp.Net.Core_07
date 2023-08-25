@@ -1,19 +1,18 @@
 ﻿using CourseStore.BLL.Framework;
-using CourseStore.DAL.Contexts;
 using CourseStore.Model.Tags.Commands;
 using CourseStore.Model.Tags.Entities;
-using Microsoft.EntityFrameworkCore;
+using CourseWebApi.Model.Repositories;
 
 namespace CourseStore.BLL.Tags.Commands;
 
 public class UpdateTagHandler : BaseApplicationServiceHandler<UpdateTag, Tag>
 {
-    public UpdateTagHandler(CourseStoreDbContext courseStoreDbContext) : base(courseStoreDbContext)
+    public UpdateTagHandler(IRepository<Tag> repository) : base(repository)
     {
     }
     protected override async Task HandleRequest(UpdateTag request, CancellationToken cancellationToken)
     {
-        Tag? tag = await _courseStoreDbContext.Tags.SingleOrDefaultAsync(c => c.Id == request.TagId, cancellationToken: cancellationToken);
+        Tag? tag = await _repository.GetById(request.TagId);
         if (tag == null)
         {
             AddError($"تگ با شناسه {request.TagId} یافت نشد");
@@ -21,7 +20,7 @@ public class UpdateTagHandler : BaseApplicationServiceHandler<UpdateTag, Tag>
         else
         {
             tag.TagName = request.TagName;
-            await _courseStoreDbContext.SaveChangesAsync(cancellationToken);
+            await _repository.Update(tag);
             AddResult(tag);
         }
     }

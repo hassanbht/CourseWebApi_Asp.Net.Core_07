@@ -6,13 +6,13 @@ namespace CourseWebApi.Model.Repositories
 {
     public interface IRepository<T> : IDisposable where T : BaseEntity
     {
-        void Add(T entity);
-        void Update(T entity);
-        void Delete(T entity);
+        Task Add(T entity);
+        Task Update(T entity);
+        Task Delete(T entity);
         Task AddAsync(T entity, CancellationToken cancellationToken);
-        T GetById(int id);
-        IEnumerable<T> GetAll();
-        IEnumerable<T> Find(Expression<Func<T, bool>> expression);
+        Task<T> GetById(int id);
+        Task<ICollection<T>> GetAll();
+        Task<ICollection<T>> Find(Expression<Func<T, bool>> expression);
     }
 
 

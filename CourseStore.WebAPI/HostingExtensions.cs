@@ -2,7 +2,6 @@
 using CourseStore.DAL.Contexts;
 using CourseStore.DAL.Framework;
 using CourseWebApi.BLL.Auth.Services;
-using CourseWebApi.BLL.Infra;
 using CourseWebApi.DAL.Caching;
 using CourseWebApi.DAL.DbContexts;
 using CourseWebApi.DAL.Framework;

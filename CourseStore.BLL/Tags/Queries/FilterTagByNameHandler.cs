@@ -1,19 +1,25 @@
 ﻿using CourseStore.BLL.Framework;
-using CourseStore.DAL.Contexts;
-using CourseStore.Model.Tags.Dtos;
+using CourseStore.Model.Tags.Entities;
 using CourseStore.Model.Tags.Queries;
-using CourseStore.DAL.Tags;
+using CourseWebApi.Model.Repositories;
+
 namespace CourseStore.BLL.Tags.Queries;
 
-public class FilterTagByNameHandler : BaseApplicationServiceHandler<FilterTagByName, ICollection<TagQuery>>
+public class FilterTagByNameHandler : BaseListApplicationServiceHandler<FilterTagByName, Tag>
 {
-    public FilterTagByNameHandler(CourseStoreDbContext courseStoreDbContext) : base(courseStoreDbContext)
+    public FilterTagByNameHandler(IRepository<Tag> repository) : base(repository)
     {
     }
 
     protected override async Task HandleRequest(FilterTagByName? request, CancellationToken cancellationToken)
     {
-        var result = await _courseStoreDbContext.Tags.WhereOver(request?.TagName!).ToTagQrAsync();
-        AddResult(result);
+        ICollection<Tag> tags;
+        if (request == null || string.IsNullOrEmpty(request.TagName))
+            tags = await _repository.GetAll();
+        else
+            tags = await _repository.Find(t => t.TagName.Contains(request!.TagName!));
+        AddResult(tags);
+
     }
+
 }
