@@ -49,6 +49,5 @@ namespace CourseWebApi.WebAPI.Middleware
                 }.ToString());
             }
         }
-
     }
 }

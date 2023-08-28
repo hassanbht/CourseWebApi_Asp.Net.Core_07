@@ -20,10 +20,10 @@ namespace CourseWebApi.DAL.Caching
 
             if (value != null)
             {
-                return JsonSerializer.Deserialize<T>(value);
+                return JsonSerializer.Deserialize<T>(value)!;
             }
 
-            return default;
+            return default!;
         }
 
         public object RemoveData(string key)

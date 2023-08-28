@@ -2,6 +2,7 @@
 using CourseStore.DAL.Contexts;
 using CourseStore.DAL.Framework;
 using CourseWebApi.BLL.Auth.Services;
+using CourseWebApi.BLL.Students;
 using CourseWebApi.DAL.Caching;
 using CourseWebApi.DAL.DbContexts;
 using CourseWebApi.DAL.Framework;
@@ -33,6 +34,7 @@ namespace CourseWebApi.WebAPI
                 AddInterceptors(new AddAuditFieldInterceptor()));
             builder.Services.AddDbContext<AuthDbContext>(c => c.UseSqlServer(configuration.GetConnectionString("JWTConnection")!));
             builder.Services.AddScoped(typeof(IRepository<>), typeof(RepositoryDbContext<>));
+            
             #endregion
 
             #region CQRS
@@ -71,6 +73,7 @@ namespace CourseWebApi.WebAPI
             builder.Services.AddScoped<IIdentity, IdentityService>();
             builder.Services.AddScoped<IAuthService, JWTService>();
             #endregion
+
             #region JwtOptions
             JwtOptions jwtOptions = new JwtOptions();
             builder.Configuration.GetSection("JwtOptions").Bind(jwtOptions);
@@ -100,10 +103,19 @@ namespace CourseWebApi.WebAPI
                      ValidAudience = jwtOptions.Audience,
                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Secret))
                  };
+                 options.Events = new JwtBearerEvents
+                 {
+                     OnAuthenticationFailed = context => {
+                         if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                         {
+                             context.Response.Headers.Add("IS-TOKEN-EXPIRED", "true");
+                         }
+                         return Task.CompletedTask;
+                     }
+                 };
              });
 
             #endregion
-
 
             #region Serilog
             builder.Host.UseSerilog((ctx, lc) => lc
@@ -164,6 +176,7 @@ namespace CourseWebApi.WebAPI
             });
             builder.Services.AddAutoMapper(typeof(TagProfile).Assembly);
             #endregion
+
             return builder.Build();
         }
 

@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+option csharp_namespace = "CourseWebApi.GrpcService.Protos.V1";
+
+import "google/protobuf/empty.proto";
+
+service StudentService{
+	rpc GetAll(google.protobuf.Empty) returns (stream StudentReply);
+	rpc GetById(StudentByIdRequest) returns (StudentReply);
+	rpc CreateStudent(stream StudentCreateRequest) returns (stream StudentCreateReply);
+	rpc DeleteStudent(StudentByIdRequest) returns (StudentDeleteReply);
+	rpc UpdatePerson(StudentUpdateRequest) returns (StudentUpdateReply);
+
+}
+
+message StudentByIdRequest{
+		int32 ID=1;
+}
+
+message StudentCreateRequest{
+	string StudentNumber = 2;
+	string FirstName = 3;
+	string LastName = 4;
+	string Description = 5;
+	repeated string PhoneNumbers = 6;
+}
+
+
+message StudentUpdateRequest{
+	int32 Id=1;
+	string FirstName = 3;
+	string LastName = 4;
+	string Description = 5;
+}
+
+message StudentReply{
+	int32 Id=1;
+	string StudentNumber = 2;
+	string FirstName = 3;
+	string LastName = 4;
+	string Description = 5;
+	repeated string PhoneNumbers = 6;
+}
+
+
+message StudentCreateReply{
+		int32 Id=1;
+}
+message StudentDeleteReply
+{
+	bool Success=1;
+}
+
+
+message StudentUpdateReply
+{
+	bool Success=1;
+}

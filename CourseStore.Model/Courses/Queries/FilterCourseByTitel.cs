@@ -5,7 +5,7 @@ using MediatR;
 
 namespace CourseStore.Model.Tags.Queries;
 
-public class FilterCourseByTitel:IRequest<ApiResult<ICollection<CourseQuery>>>
+public class FilterCourseByTitel:IRequest<ApiResult<ICollection<CourseModel>>>
 {
     public string? Titel { get; set; }
 }

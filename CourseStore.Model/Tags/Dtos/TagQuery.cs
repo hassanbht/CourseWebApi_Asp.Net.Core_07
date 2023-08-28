@@ -1,13 +1,6 @@
-﻿using CourseStore.Model.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace CourseStore.Model.Tags.Dtos;
 
-namespace CourseStore.Model.Tags.Dtos;
-
-public class TagQuery: BaseEntity
+public class TagQuery
 {
     public TagQuery(int id, string tagName)
     {
@@ -15,6 +8,6 @@ public class TagQuery: BaseEntity
         TagName = tagName;
     }
 
-    //public int Id { get; set; }
+    public int Id { get; set; }
     public string TagName { get; set; }
 }

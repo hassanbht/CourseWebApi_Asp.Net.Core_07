@@ -2,6 +2,7 @@
 using CourseStore.Model.Orders.Entities;
 using CourseStore.Model.Tags.Entities;
 using CourseStore.Model.Teachers.Entities;
+using CourseWebApi.Model.Student.Entities;
 using CourseWebApi.Model.Teachers.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,10 +13,12 @@ public class CourseStoreDbContext : DbContext
 
     public DbSet<Course> Courses { get; set; }
     public DbSet<CourseComment> CourseComments { get; set; }
-    public DbSet<CourseTeacher> CourseTeachers { get; set; }
+    public DbSet<CourseTeacher> CourseTeachers { get; set; }    
     public DbSet<Teacher> Teachers { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<Tag> Tags { get; set; }
+    public DbSet<Student> Students { get; set; }
+    public DbSet<CourseStudent> CourseStudents { get; set; }
     public CourseStoreDbContext(DbContextOptions<CourseStoreDbContext> options) : base(options)
     {
     }
@@ -52,9 +55,14 @@ public class CourseStoreDbContext : DbContext
         {
             a.Property(p => p.CarName).HasMaxLength(100);
         });
+        modelBuilder.Ignore<PhoneNumber>();
+        modelBuilder.Entity<Student>().OwnsMany(t => t.PhoneNumbers, a =>
+        {
+            a.Property(p => p.Number).HasMaxLength(11).IsUnicode(false);
+        });
         #endregion
 
-        
+
 
     }
 

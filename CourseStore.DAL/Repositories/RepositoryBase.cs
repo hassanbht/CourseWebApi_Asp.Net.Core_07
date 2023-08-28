@@ -8,24 +8,26 @@ namespace CourseWebApi.DAL.Repositories
 {
     public class RepositoryDbContext<T> : IRepository<T> where T : BaseEntity 
     {
-        private readonly CourseStoreDbContext courseStoreDb;
+        private readonly CourseStoreDbContext _courseStoreDb;
         private DbSet<T> _entities;
         public RepositoryDbContext(CourseStoreDbContext courseStoreDb)
         {
-            this.courseStoreDb = courseStoreDb;
+            this._courseStoreDb = courseStoreDb;
             this._entities = courseStoreDb.Set<T>();
         }
 
-        public async Task Add(T entity)
+        public  async Task<bool> Add(T entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
             _entities.Add(entity);
-            await courseStoreDb.SaveChangesAsync();
+
+            return await _courseStoreDb.SaveChangesAsync()>0;
+            
         }
-        public async Task AddAsync(T entity, CancellationToken cancellationToken)
+        public async Task<bool> AddAsync(T entity, CancellationToken cancellationToken)
         {
 
             if (entity == null)
@@ -33,38 +35,52 @@ namespace CourseWebApi.DAL.Repositories
                 throw new ArgumentNullException("entity");
             }
             await _entities.AddAsync(entity);
-            await courseStoreDb.SaveChangesAsync();
+            return await _courseStoreDb.SaveChangesAsync() > 0;
         }
 
-        public async Task Update(T entity)
+        public async Task<bool> Update(T entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
             _entities.Update(entity);
-            await courseStoreDb.SaveChangesAsync();
+          return  await _courseStoreDb.SaveChangesAsync()>0;
         }
 
-        public async Task Delete(T entity)
+        public async Task<bool> Delete(T entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
             _entities.Remove(entity);
-            await courseStoreDb.SaveChangesAsync();
+            return await _courseStoreDb.SaveChangesAsync() > 0;
         }
 
-
-        public Task<T> GetById(int id)
+        public async Task<T?> GetById(int id, params Expression<Func<T, object>>[]? including)
         {
-            return _entities.FirstOrDefaultAsync(x => x.Id == id)!;
+            var query = _entities.AsQueryable();
+            if (including != null)
+                including.ToList().ForEach(include =>
+                {
+                    if (include != null)
+                        query = query.Include(include);
+                });
+            return await query.FirstOrDefaultAsync(x => x.Id == id);
+           
         }
 
-        public async Task<ICollection<T>> GetAll()
+        public async Task<ICollection<T>> GetAll(params Expression<Func<T, object>>[]? including)
         {
-            return await _entities.ToListAsync();
+            var query = _entities.AsQueryable();
+            if (including != null)
+                including.ToList().ForEach(include =>
+                {
+                    if (include != null)
+                        query = query.Include(include);
+                });
+            return await query.ToListAsync();
         }
 
         public async Task<ICollection<T>> Find(Expression<Func<T, bool>> expression)
@@ -74,7 +90,7 @@ namespace CourseWebApi.DAL.Repositories
 
         public void Dispose()
         {
-            courseStoreDb.Dispose();
+            _courseStoreDb.Dispose();
             GC.SuppressFinalize(this);
         }
     }

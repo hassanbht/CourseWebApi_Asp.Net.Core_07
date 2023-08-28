@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Diagnostics;
+﻿using CourseStore.Model.Framework;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace CourseStore.DAL.Framework;
 
@@ -14,8 +15,8 @@ public class AddAuditFieldInterceptor : SaveChangesInterceptor
     private static void SetShadowProperties(DbContextEventData eventData)
     {
         var changeTracker = eventData?.Context?.ChangeTracker;
-        var addedEntities = changeTracker?.Entries().Where(c => c.State == Microsoft.EntityFrameworkCore.EntityState.Added);
-        var modifiedEntities = changeTracker?.Entries().Where(c => c.State == Microsoft.EntityFrameworkCore.EntityState.Modified);
+        var addedEntities = changeTracker?.Entries().Where(c => c.State == Microsoft.EntityFrameworkCore.EntityState.Added && c.Entity is BaseEntity);
+        var modifiedEntities = changeTracker?.Entries().Where(c => c.State == Microsoft.EntityFrameworkCore.EntityState.Modified && c.Entity is BaseEntity);
         DateTime now = DateTime.Now;
         foreach (var item in addedEntities!)
         {

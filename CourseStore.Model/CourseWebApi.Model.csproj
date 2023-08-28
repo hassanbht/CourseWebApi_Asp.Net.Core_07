@@ -19,7 +19,6 @@
     <Folder Include="Orders\Commands\" />
     <Folder Include="Orders\Dtos\" />
     <Folder Include="Orders\Queries\" />
-    <Folder Include="Teachers\Dtos\" />
     <Folder Include="Teachers\Queries\" />
   </ItemGroup>
 

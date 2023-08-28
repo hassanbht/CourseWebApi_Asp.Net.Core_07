@@ -16,7 +16,6 @@ public class CreateCoursesHandler : BaseApplicationServiceHandler<CreateTag, Tag
     {
         Tag tag = new Tag(request.TagName);
         await _repository.AddAsync(tag,cancellationToken);
-        //await _repository.SaveChangesAsync(cancellationToken);
         AddResult(tag);
     }
 }
