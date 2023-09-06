@@ -12,6 +12,6 @@ public class CreateTag : IRequest<ApiResult<Tag>>
         TagName = tagName;
     }
 
-    [Required, StringLength(50, MinimumLength = 2)]
+    //[Required, StringLength(50, MinimumLength = 2)]
     public string TagName { get; set; }
 }

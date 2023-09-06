@@ -12,7 +12,9 @@ using CourseWebApi.Model.Framework;
 using CourseWebApi.Model.Repositories;
 using CourseWebApi.Model.Services;
 using CourseWebApi.Model.Tags.Profiles;
+using CourseWebApi.Model.Tags.Validations;
 using CourseWebApi.WebAPI.Middleware;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -131,7 +133,7 @@ namespace CourseWebApi.WebAPI
             #endregion
 
             #region validators
-
+            builder.Services.AddValidatorsFromAssemblyContaining<CreateTagValidator>();
             #endregion
 
             #region messaging

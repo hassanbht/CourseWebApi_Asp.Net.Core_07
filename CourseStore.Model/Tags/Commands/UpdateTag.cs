@@ -13,8 +13,8 @@ public class UpdateTag : IRequest<ApiResult<Tag>>
         TagName = tagName;
     }
 
-    [Required, Range(1, int.MaxValue)]
+    //[Required, Range(1, int.MaxValue)]
     public int TagId { get; set; }
-    [Required, StringLength(50, MinimumLength = 2)]
+    //[Required, StringLength(50, MinimumLength = 2)]
     public string TagName { get; set; }
 }
