@@ -1,8 +1,8 @@
-﻿using CourseStore.Model.Tags.Dtos;
-using CourseStore.Model.Tags.Entities;
+﻿using CourseWebApi.Model.Tags.Dtos;
+using CourseWebApi.Model.Tags.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace CourseStore.DAL.Tags;
+namespace CourseWebApi.DAL.Tags;
 
 public static class TagQueryExtensions
 {
@@ -14,7 +14,7 @@ public static class TagQueryExtensions
     }
     public static List<TagQuery> ToTagQr(this IQueryable<Tag> tags)
     {
-        return tags.Select(c => new TagQuery(c.Id,c.TagName)).ToList();
+        return tags.Select(c => new TagQuery(c.Id, c.TagName)).ToList();
     }
 
     public static async Task<List<TagQuery>> ToTagQrAsync(this IQueryable<Tag> tags)

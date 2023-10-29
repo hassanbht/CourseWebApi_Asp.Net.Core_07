@@ -1,8 +1,4 @@
-﻿using CourseStore.Model.Courses.Entities;
-using CourseStore.Model.Tags.Dtos;
-using CourseStore.Model.Tags.Entities;
-using CourseStore.Model.Teachers.Entities;
-using CourseWebApi.Model.Tags.Dtos;
+﻿using CourseWebApi.Model.Tags.Dtos;
 using CourseWebApi.Model.Teachers.Dtos;
 
 namespace CourseWebApi.Model.Courses.Dtos

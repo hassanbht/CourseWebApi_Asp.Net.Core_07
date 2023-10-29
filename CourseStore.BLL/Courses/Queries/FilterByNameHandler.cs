@@ -1,9 +1,6 @@
-﻿using CourseStore.BLL.Framework;
-using CourseStore.DAL.Contexts;
-using CourseStore.Model.Tags.Dtos;
-using CourseStore.Model.Tags.Queries;
-using CourseStore.DAL.Tags;
-namespace CourseStore.BLL.Tags.Queries;
+﻿
+
+namespace CourseWebApi.BLL.Courses.Queries;
 
 //public class FilterByNameHandler : BaseApplicationServiceHandler<FilterTagByName, ICollection<TagQuery>>
 //{

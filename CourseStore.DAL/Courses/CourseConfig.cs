@@ -1,8 +1,8 @@
-﻿using CourseStore.Model.Courses.Entities;
+﻿using CourseWebApi.Model.Courses.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CourseStore.DAL.Courses;
+namespace CourseWebApi.DAL.Courses;
 
 public class CourseConfig : IEntityTypeConfiguration<Course>
 {
@@ -15,8 +15,8 @@ public class CourseConfig : IEntityTypeConfiguration<Course>
         builder.Property(c => c.StartDate).IsRequired().HasDefaultValueSql("GETDATE()");
         builder.Property(c => c.ShortDescription).IsRequired().HasMaxLength(500).IsUnicode();
         builder.Property(c => c.RowVersion).IsRowVersion();
-        builder.HasMany(c=>c.CourseTags).WithOne(t=>t.Course).OnDelete(DeleteBehavior.Cascade);
-        builder.HasMany(c=>c.CourseTeachers).WithOne(t => t.Course).OnDelete(DeleteBehavior.Cascade);
-        builder.HasMany(c=>c.CourseComments).WithOne(t => t.Course).OnDelete(DeleteBehavior.Cascade);
+        builder.HasMany(c => c.CourseTags).WithOne(t => t.Course).OnDelete(DeleteBehavior.Cascade);
+        builder.HasMany(c => c.CourseTeachers).WithOne(t => t.Course).OnDelete(DeleteBehavior.Cascade);
+        builder.HasMany(c => c.CourseComments).WithOne(t => t.Course).OnDelete(DeleteBehavior.Cascade);
     }
 }

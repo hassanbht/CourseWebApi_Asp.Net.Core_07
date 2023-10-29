@@ -1,8 +1,5 @@
-﻿using CourseStore.BLL.Tags.Commands;
-using CourseStore.DAL.Contexts;
-using CourseStore.DAL.Framework;
-using CourseWebApi.BLL.Auth.Services;
-using CourseWebApi.BLL.Students;
+﻿using CourseWebApi.BLL.Auth.Services;
+using CourseWebApi.BLL.Tags.Commands;
 using CourseWebApi.DAL.Caching;
 using CourseWebApi.DAL.DbContexts;
 using CourseWebApi.DAL.Framework;
@@ -36,7 +33,7 @@ namespace CourseWebApi.WebAPI
                 AddInterceptors(new AddAuditFieldInterceptor()));
             builder.Services.AddDbContext<AuthDbContext>(c => c.UseSqlServer(configuration.GetConnectionString("JWTConnection")!));
             builder.Services.AddScoped(typeof(IRepository<>), typeof(RepositoryDbContext<>));
-            
+
             #endregion
 
             #region CQRS
@@ -107,7 +104,8 @@ namespace CourseWebApi.WebAPI
                  };
                  options.Events = new JwtBearerEvents
                  {
-                     OnAuthenticationFailed = context => {
+                     OnAuthenticationFailed = context =>
+                     {
                          if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
                          {
                              context.Response.Headers.Add("IS-TOKEN-EXPIRED", "true");
@@ -186,7 +184,8 @@ namespace CourseWebApi.WebAPI
         {
 
             #region Middleware
-            app.UseMiddleware<ExceptionMiddleware>();
+            //app.UseMiddleware<ExceptionMiddleware>();
+            app.UseCustomExceptionHandler();
             #endregion
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

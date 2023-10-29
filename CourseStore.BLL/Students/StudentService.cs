@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CourseStore.Model.Courses.Entities;
+using CourseWebApi.Model.Courses.Entities;
 using CourseWebApi.Model.Repositories;
 using CourseWebApi.Model.Services;
 using CourseWebApi.Model.Student.Dtos;
@@ -11,13 +11,11 @@ namespace CourseWebApi.BLL.Students
     public class StudentService : IStudentService
     {
         private readonly IRepository<Student> _studentRepository;
-        private readonly ILogger<StudentService> _logger;
         private readonly IMapper _mapper;
 
-        public StudentService(IRepository<Student> studentRepository, ILogger<StudentService> logger, IMapper mapper)
+        public StudentService(IRepository<Student> studentRepository, IMapper mapper)
         {
             this._studentRepository = studentRepository;
-            this._logger = logger;
             this._mapper = mapper;
         }
         public async Task<int> CreateAsync(StudentModel student)
@@ -107,46 +105,10 @@ namespace CourseWebApi.BLL.Students
                 Description = student.Description,
                 StudentNumber = student.StudentNumber,
                 PhoneNumbers = student.PhoneNumbers.Select(p => _mapper.Map<PhoneNumber>(p)
-               //{
-               //    Number = p.Number
-               //}
                ).ToList(),
                 Courses = student?.Courses?.Select(c => _mapper.Map<Course>(c)
                ).ToList(),
-                //{
-                //    Id = c.CourseId,
-                //    Title = c.Title,
-                //    Description = c.Description,
-                //    ImageUrl = c.ImageUrl,
-                //    Price = c.Price,
-                //    ShortDescription = c.ShortDescription,
-                //    StartDate = c.StartDate,
-                //    EndTime = c.EndTime,
-                //    CourseTags = c.Tags.Select(t => _mapper.Map<CourseTag>(t)
-                //    //{
-                //    //    CourseId = c.CourseId,
-                //    //    TagId = t.Id,
-                //    //}
-                //    ).ToList(),
-                //    CourseTeachers = c.Teachers.Select(t => _mapper.Map<CourseTeacher>(t)
-                //    //{
-                //    //    CourseId = c.CourseId,
-                //    //    TeacherId = t.TeacherId,
-                //    //}
-                //    ).ToList(),
-                //    CourseComments = c.Comments.Select(cm => _mapper.Map<CourseComment>(cm)
-                //    //{
-                //    //    Id = cm.CommentId,
-                //    //    CommantDate = cm.CommantDate,
-                //    //    CommentBy = cm.CommentBy,
-                //    //    Comment = cm.Comment,
-                //    //    CourseId = c.CourseId,
-                //    //    IsValid = cm.IsValid
-                //    //}
-                //    ).ToList(),
-                //    RowVersion = c.RowVersion,
-
-                //}).ToList()
+                
             };
 
 

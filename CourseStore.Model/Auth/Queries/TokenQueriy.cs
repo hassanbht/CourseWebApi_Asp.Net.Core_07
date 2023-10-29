@@ -1,4 +1,5 @@
-﻿using CourseStore.Model.Framework;
+﻿using CourseWebApi.Model.Auth.Dtos;
+using CourseWebApi.Model.Framework;
 using MediatR;
 
 namespace CourseWebApi.Model.Auth.Queries

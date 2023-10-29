@@ -1,20 +1,21 @@
-﻿using CourseStore.Model.Framework;
+﻿using CourseWebApi.Model.Framework;
 using CourseWebApi.Model.Repositories;
 using MediatR;
 
-namespace CourseStore.BLL.Framework;
+namespace CourseWebApi.BLL.Framework;
 
 public abstract class BaseListApplicationServiceHandler<TRequest, TResult> : IRequestHandler<TRequest, ApiResult<ICollection<TResult>>>
     where TRequest : IRequest<ApiResult<ICollection<TResult>>> where TResult : BaseEntity
 {
     protected readonly IRepository<TResult> _repository;
-    protected ApiResult<ICollection<TResult>> _responseList = new ApiResult<ICollection<TResult>> { };
-    protected ApiResult<TResult> _response = new ApiResult<TResult> { };
+    protected ApiResult<TResult> _response = new ApiResult<TResult>(ApiResultStatusCode.ServerError, null);
+    protected ApiResult<ICollection<TResult>> _responseList = new ApiResult<ICollection<TResult>>{ };
+   
 
 
     public BaseListApplicationServiceHandler(IRepository<TResult> repository)
     {
-        this._repository = repository;
+        _repository = repository;
     }
 
 

@@ -1,9 +1,8 @@
-﻿using CourseStore.Model.Courses.Entities;
-using CourseStore.Model.Tags.Entities;
+﻿using CourseWebApi.Model.Tags.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CourseStore.DAL.Tags;
+namespace CourseWebApi.DAL.Tags;
 
 public class TagConfig : IEntityTypeConfiguration<Tag>
 {
@@ -11,6 +10,6 @@ public class TagConfig : IEntityTypeConfiguration<Tag>
     {
         builder.Property(t => t.TagName).IsRequired().HasMaxLength(100).IsUnicode();
         builder.Property<bool>("IsDeleted");
-        builder.HasQueryFilter(t=> EF.Property<bool>(t, "IsDeleted") == false);
+        builder.HasQueryFilter(t => EF.Property<bool>(t, "IsDeleted") == false);
     }
 }

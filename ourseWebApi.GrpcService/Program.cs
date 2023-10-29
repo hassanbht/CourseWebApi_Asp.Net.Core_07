@@ -1,4 +1,4 @@
-using ourseWebApi.GrpcService;
+using CourseWebApi.GrpcService;
 
 var builder = WebApplication.CreateBuilder(args);
 

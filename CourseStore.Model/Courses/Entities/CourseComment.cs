@@ -1,6 +1,6 @@
-﻿using CourseStore.Model.Framework;
+﻿using CourseWebApi.Model.Framework;
 
-namespace CourseStore.Model.Courses.Entities;
+namespace CourseWebApi.Model.Courses.Entities;
 
 public class CourseComment : BaseEntity
 {

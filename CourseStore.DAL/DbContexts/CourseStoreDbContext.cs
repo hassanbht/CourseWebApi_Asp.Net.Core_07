@@ -1,24 +1,23 @@
-﻿using CourseStore.Model.Courses.Entities;
-using CourseStore.Model.Orders.Entities;
-using CourseStore.Model.Tags.Entities;
-using CourseStore.Model.Teachers.Entities;
+﻿using CourseWebApi.Model.Courses.Entities;
+using CourseWebApi.Model.Orders.Entities;
 using CourseWebApi.Model.Student.Entities;
+using CourseWebApi.Model.Tags.Entities;
 using CourseWebApi.Model.Teachers.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace CourseStore.DAL.Contexts;
+namespace CourseWebApi.DAL.DbContexts;
 
 public class CourseStoreDbContext : DbContext
 {
 
-    public DbSet<Course> Courses { get; set; }
-    public DbSet<CourseComment> CourseComments { get; set; }
-    public DbSet<CourseTeacher> CourseTeachers { get; set; }    
-    public DbSet<Teacher> Teachers { get; set; }
-    public DbSet<Order> Orders { get; set; }
-    public DbSet<Tag> Tags { get; set; }
-    public DbSet<Student> Students { get; set; }
-    public DbSet<CourseStudent> CourseStudents { get; set; }
+    public virtual DbSet<Course> Courses { get; set; }
+    public virtual DbSet<CourseComment> CourseComments { get; set; }
+    public virtual DbSet<CourseTeacher> CourseTeachers { get; set; }
+    public virtual DbSet<Teacher> Teachers { get; set; }
+    public virtual DbSet<Order> Orders { get; set; }
+    public virtual DbSet<Tag> Tags { get; set; }
+    public virtual DbSet<Student> Students { get; set; }
+    public virtual DbSet<CourseStudent> CourseStudents { get; set; }
     public CourseStoreDbContext(DbContextOptions<CourseStoreDbContext> options) : base(options)
     {
     }
@@ -37,7 +36,7 @@ public class CourseStoreDbContext : DbContext
         }
         #endregion
 
-        modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
 
         #region Config Entity
         modelBuilder.Entity<Course>().ToTable(c => c.IsTemporal());

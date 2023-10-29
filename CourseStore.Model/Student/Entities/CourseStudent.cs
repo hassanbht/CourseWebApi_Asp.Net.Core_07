@@ -1,7 +1,7 @@
-﻿using CourseStore.Model.Framework;
-using CourseWebApi.Model.Student.Entities;
+﻿using CourseWebApi.Model.Courses.Entities;
+using CourseWebApi.Model.Framework;
 
-namespace CourseStore.Model.Courses.Entities;
+namespace CourseWebApi.Model.Student.Entities;
 
 public class CourseStudent : BaseEntity
 {

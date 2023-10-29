@@ -1,15 +1,10 @@
-﻿using CourseStore.BLL.Framework;
-using CourseStore.DAL.Contexts;
-using CourseStore.Model.Courses.Entities;
-using CourseStore.Model.Tags.Commands;
-using CourseStore.Model.Tags.Entities;
-using CourseWebApi.BLL.Framework;
+﻿using CourseWebApi.BLL.Framework;
 using CourseWebApi.Model.Auth.Commands;
 using CourseWebApi.Model.Auth.Dtos;
 using CourseWebApi.Model.Auth.Queries;
 using CourseWebApi.Model.Services;
 
-namespace CourseStore.BLL.Tags.Commands;
+namespace CourseWebApi.BLL.Auth.Queries;
 
 public class GetRefreshTokenHandler : BaseAuthServiceHandler<TokenQueriy, TokenModel>
 {
@@ -20,7 +15,7 @@ public class GetRefreshTokenHandler : BaseAuthServiceHandler<TokenQueriy, TokenM
     protected override async Task HandleRequest(TokenQueriy request, CancellationToken cancellationToken)
     {
         TokenModel response = await _authService.RefreshTokenAsync(request);
-        if (response == null || response != null && !string.IsNullOrEmpty( response.Message))
+        if (response == null || response != null && !string.IsNullOrEmpty(response.Message))
         {
             AddError(response?.Message!);
         }

@@ -1,7 +1,7 @@
-﻿using CourseStore.Model.Framework;
+﻿using CourseWebApi.Model.Framework;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace CourseStore.DAL.Framework;
+namespace CourseWebApi.DAL.Framework;
 
 public class AddAuditFieldInterceptor : SaveChangesInterceptor
 {

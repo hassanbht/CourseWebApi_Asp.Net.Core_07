@@ -1,4 +1,4 @@
-﻿using CourseStore.Model.Tags.Commands;
+﻿using CourseWebApi.Model.Tags.Commands;
 using FluentValidation;
 
 namespace CourseWebApi.Model.Tags.Validations

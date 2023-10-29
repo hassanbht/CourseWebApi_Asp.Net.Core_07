@@ -1,12 +1,11 @@
-﻿using CourseStore.Model.Courses.Entities;
-using CourseStore.Model.Framework;
-using CourseWebApi.Model.Teachers.Entities;
+﻿using CourseWebApi.Model.Courses.Entities;
+using CourseWebApi.Model.Framework;
 
-namespace CourseStore.Model.Teachers.Entities;
+namespace CourseWebApi.Model.Teachers.Entities;
 
 public class Teacher : BaseEntity
 {
-    
+
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string FullName { get; set; }

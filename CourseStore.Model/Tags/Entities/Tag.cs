@@ -1,10 +1,14 @@
-﻿using CourseStore.Model.Courses.Entities;
-using CourseStore.Model.Framework;
+﻿using CourseWebApi.Model.Courses.Entities;
+using CourseWebApi.Model.Framework;
 
-namespace CourseStore.Model.Tags.Entities;
+namespace CourseWebApi.Model.Tags.Entities;
 
 public class Tag : BaseEntity
 {
+    public Tag()
+    {
+
+    }
     public Tag(string tagName)
     {
         TagName = tagName;

@@ -1,6 +1,6 @@
-﻿using CourseStore.Model.Framework;
+﻿using CourseWebApi.Model.Framework;
 
-namespace CourseStore.Model.Courses.Entities;
+namespace CourseWebApi.Model.Courses.Entities;
 
 public class Course : BaseEntity
 {
@@ -14,5 +14,5 @@ public class Course : BaseEntity
     public ICollection<CourseTag> CourseTags { get; set; }
     public ICollection<CourseTeacher> CourseTeachers { get; set; }
     public ICollection<CourseComment> CourseComments { get; set; }
-    public Byte[] RowVersion { get; set; }
+    public byte[] RowVersion { get; set; }
 }

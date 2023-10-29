@@ -1,5 +1,5 @@
-﻿using CourseStore.Model.Courses.Entities;
-using CourseStore.Model.Framework;
+﻿using CourseWebApi.Model.Courses.Entities;
+using CourseWebApi.Model.Framework;
 
 namespace CourseWebApi.Model.Student.Entities
 {

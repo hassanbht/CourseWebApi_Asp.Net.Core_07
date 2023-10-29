@@ -1,4 +1,4 @@
-﻿using CourseStore.Model.Tags.Commands;
+﻿using CourseWebApi.Model.Tags.Commands;
 using FluentValidation;
 
 namespace CourseWebApi.Model.Tags.Validations
@@ -18,10 +18,14 @@ namespace CourseWebApi.Model.Tags.Validations
 
             RuleFor(x => x.TagId)
                .Cascade(CascadeMode.Stop)
-               .NotEmpty()
-               .WithErrorCode("100").WithMessage("Id is not Empty")
-               .InclusiveBetween(1, int.MaxValue)
-               .WithErrorCode("101");
+               .GreaterThan(1)
+               .WithErrorCode("103").WithMessage("The minimum Id is 1")
+               .LessThanOrEqualTo(2147483647)
+               .WithErrorCode("104").WithMessage("The maximum Id is 2147483647");
         }
     }
+
+
+
+
 }

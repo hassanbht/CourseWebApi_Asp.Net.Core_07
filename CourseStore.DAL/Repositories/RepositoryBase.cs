@@ -1,5 +1,5 @@
-﻿using CourseStore.DAL.Contexts;
-using CourseStore.Model.Framework;
+﻿using CourseWebApi.DAL.DbContexts;
+using CourseWebApi.Model.Framework;
 using CourseWebApi.Model.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -29,23 +29,46 @@ namespace CourseWebApi.DAL.Repositories
         }
         public async Task<bool> AddAsync(T entity, CancellationToken cancellationToken)
         {
-
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
-            await _entities.AddAsync(entity);
-            return await _courseStoreDb.SaveChangesAsync() > 0;
+            await _entities.AddAsync(entity, cancellationToken);
+            return await _courseStoreDb.SaveChangesAsync(cancellationToken) > 0;
         }
 
+        public async Task<bool> AddRange(ICollection<T> list)
+        {
+            if (list == null)
+            {
+                throw new ArgumentNullException("list");
+            }
+            _entities.AddRange(list);
+
+            return await _courseStoreDb.SaveChangesAsync() > 0;
+
+        }
+
+        public async Task<bool> AddRangeAsync(ICollection<T> list, CancellationToken cancellationToken)
+        {
+            if (list == null)
+            {
+                throw new ArgumentNullException("list");
+            }
+           await _entities.AddRangeAsync(list, cancellationToken);
+
+            return await _courseStoreDb.SaveChangesAsync(cancellationToken) > 0;
+
+        }
         public async Task<bool> Update(T entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
-            _entities.Update(entity);
-          return  await _courseStoreDb.SaveChangesAsync()>0;
+            var entry = _entities.First(e => e.Id == entity.Id);
+            _entities.Entry(entry).CurrentValues.SetValues(entity);
+            return  await _courseStoreDb.SaveChangesAsync()>0;
         }
 
         public async Task<bool> Delete(T entity)

@@ -1,9 +1,9 @@
-﻿using CourseStore.BLL.Framework;
-using CourseStore.Model.Tags.Entities;
-using CourseStore.Model.Tags.Queries;
+﻿using CourseWebApi.BLL.Framework;
 using CourseWebApi.Model.Repositories;
+using CourseWebApi.Model.Tags.Entities;
+using CourseWebApi.Model.Tags.Queries;
 
-namespace CourseStore.BLL.Tags.Queries;
+namespace CourseWebApi.BLL.Tags.Queries;
 
 public class FilterTagByNameHandler : BaseListApplicationServiceHandler<FilterTagByName, Tag>
 {

@@ -1,10 +1,7 @@
-﻿using CourseStore.BLL.Framework;
-using CourseStore.DAL.Contexts;
-using CourseStore.Model.Courses.Entities;
-using CourseStore.Model.Tags.Commands;
+﻿
 using Microsoft.EntityFrameworkCore;
 
-namespace CourseStore.BLL.Tags.Commands;
+namespace CourseWebApi.BLL.Courses.Commands;
 
 //public class UpdateCoursesHandler : BaseApplicationServiceHandler<UpdateCourse, Course>
 //{

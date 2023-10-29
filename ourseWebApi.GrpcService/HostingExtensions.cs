@@ -1,5 +1,4 @@
-﻿using CourseStore.DAL.Contexts;
-using CourseStore.DAL.Framework;
+﻿using CourseStore.DAL.Framework;
 using CourseWebApi.BLL.Students;
 using CourseWebApi.DAL.DbContexts;
 using CourseWebApi.DAL.Repositories;
@@ -11,7 +10,7 @@ using CourseWebApi.Model.Services;
 using CourseWebApi.Model.Tags.Profiles;
 using Microsoft.EntityFrameworkCore;
 
-namespace ourseWebApi.GrpcService
+namespace CourseWebApi.GrpcService
 {
     public static class HostingExtensions
     {

@@ -1,4 +1,4 @@
-﻿using CourseStore.Model.Courses.Entities;
+﻿
 
 namespace CourseWebApi.Model.Courses.Dtos
 {

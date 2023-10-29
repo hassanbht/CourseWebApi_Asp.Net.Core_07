@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CourseStore.WebAPI.Framework;
+namespace CourseWebApi.WebAPI.Framework;
 [Route("api/[controller]")]
 [ApiController]
 public abstract class BaseController : ControllerBase

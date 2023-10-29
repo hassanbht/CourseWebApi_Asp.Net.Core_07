@@ -1,12 +1,10 @@
-﻿using CourseStore.Model.Tags.Commands;
-using CourseStore.Model.Tags.Queries;
-using CourseStore.WebAPI.Framework;
-using CourseWebApi.Model.Auth.Commands;
+﻿using CourseWebApi.Model.Auth.Commands;
 using CourseWebApi.Model.Auth.Queries;
+using CourseWebApi.WebAPI.Framework;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CourseStore.WebAPI.Tags;
+namespace CourseWebApi.WebAPI.Auth;
 
 public class AuthenticateController : BaseController
 {

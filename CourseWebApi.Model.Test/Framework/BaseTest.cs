@@ -1,16 +1,21 @@
-﻿using CourseStore.DAL.Contexts;
+﻿using AutoMapper;
+using CourseWebApi.DAL.DbContexts;
+using CourseWebApi.Model.Repositories;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Moq;
 
 namespace CourseWebApi.Test.Framework
 {
-    public class BaseTest
+    public class BaseTest<T> where T : Profile, new()
     {
-        protected CourseStoreDbContext ctx;
-        public BaseTest(CourseStoreDbContext ctx = null)
+        protected readonly CourseStoreDbContext ctx;
+        protected IMapper _mapper;
+        public BaseTest(CourseStoreDbContext? ctx = null, IMapper? mapper = null)
         {
             this.ctx = ctx ?? GetInMemoryDBContext();
+            _mapper = mapper ?? CreateMapper();
         }
         protected CourseStoreDbContext GetInMemoryDBContext()
         {
@@ -25,7 +30,17 @@ namespace CourseWebApi.Test.Framework
             return dbContext;
         }
 
-        protected void CheckError<T>(AbstractValidator<T> validator, int ErrorCode, T vm)
+        protected IMapper CreateMapper()
+        {
+            //auto mapper configuration
+            var mockMapper = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new T());
+            });
+            _mapper = mockMapper.CreateMapper();
+            return _mapper;
+        }
+        protected void CheckError<TV>(AbstractValidator<TV> validator, int ErrorCode, TV vm)
         {
             var val = validator.Validate(vm);
             Assert.False(val.IsValid);
@@ -36,6 +51,7 @@ namespace CourseWebApi.Test.Framework
                 Assert.True(hasError);
             }
         }
+               
     }
 
 }

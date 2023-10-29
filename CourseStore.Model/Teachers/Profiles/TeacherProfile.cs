@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using CourseStore.Model.Teachers.Entities;
 using CourseWebApi.Model.Teachers.Dtos;
+using CourseWebApi.Model.Teachers.Entities;
 
-namespace CourseWebApi.Model.Tags.Profiles
+namespace CourseWebApi.Model.Teachers.Profiles
 {
     public class TeacherProfile : Profile
     {

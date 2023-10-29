@@ -1,10 +1,9 @@
-﻿using CourseStore.BLL.Framework;
-using CourseStore.DAL.Contexts;
-using CourseStore.Model.Tags.Commands;
-using CourseStore.Model.Tags.Entities;
+﻿using CourseWebApi.BLL.Framework;
 using CourseWebApi.Model.Repositories;
+using CourseWebApi.Model.Tags.Commands;
+using CourseWebApi.Model.Tags.Entities;
 
-namespace CourseStore.BLL.Tags.Commands;
+namespace CourseWebApi.BLL.Tags.Commands;
 
 public class CreateCoursesHandler : BaseApplicationServiceHandler<CreateTag, Tag>
 {
@@ -15,7 +14,7 @@ public class CreateCoursesHandler : BaseApplicationServiceHandler<CreateTag, Tag
     protected override async Task HandleRequest(CreateTag request, CancellationToken cancellationToken)
     {
         Tag tag = new Tag(request.TagName);
-        await _repository.AddAsync(tag,cancellationToken);
+        await _repository.AddAsync(tag, cancellationToken);
         AddResult(tag);
     }
 }

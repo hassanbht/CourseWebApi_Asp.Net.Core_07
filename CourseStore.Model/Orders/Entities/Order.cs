@@ -1,7 +1,7 @@
-﻿using CourseStore.Model.Courses.Entities;
-using CourseStore.Model.Framework;
+﻿using CourseWebApi.Model.Courses.Entities;
+using CourseWebApi.Model.Framework;
 
-namespace CourseStore.Model.Orders.Entities;
+namespace CourseWebApi.Model.Orders.Entities;
 
 public class Order : BaseEntity
 {

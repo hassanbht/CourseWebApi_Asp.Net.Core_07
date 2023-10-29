@@ -1,11 +1,11 @@
-﻿using CourseStore.Model.Courses.Entities;
-using CourseStore.Model.Framework;
-using CourseStore.Model.Tags.Entities;
-using CourseStore.Model.Teachers.Entities;
+﻿using CourseWebApi.Model.Courses.Entities;
+using CourseWebApi.Model.Framework;
+using CourseWebApi.Model.Tags.Entities;
+using CourseWebApi.Model.Teachers.Entities;
 using MediatR;
 using System.ComponentModel.DataAnnotations;
 
-namespace CourseStore.Model.Tags.Commands;
+namespace CourseWebApi.Model.Courses.Commands;
 
 public class UpdateCourse : IRequest<ApiResult<Course>>
 {

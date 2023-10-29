@@ -1,7 +1,4 @@
-﻿using CourseStore.BLL.Framework;
-using CourseStore.DAL.Contexts;
-using CourseStore.Model.Courses.Entities;
-using CourseStore.Model.Framework;
+﻿
 using CourseWebApi.Model.Teachers.Commands;
 using MediatR;
 using System;

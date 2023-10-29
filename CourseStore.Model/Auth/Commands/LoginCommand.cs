@@ -1,5 +1,5 @@
-﻿using CourseStore.Model.Framework;
-using CourseWebApi.Model.Auth.Dtos;
+﻿using CourseWebApi.Model.Auth.Dtos;
+using CourseWebApi.Model.Framework;
 using MediatR;
 using System;
 using System.Collections.Generic;

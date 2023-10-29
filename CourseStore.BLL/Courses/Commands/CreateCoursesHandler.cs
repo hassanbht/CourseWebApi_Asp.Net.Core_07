@@ -1,8 +1,4 @@
-﻿using CourseStore.BLL.Framework;
-using CourseStore.DAL.Contexts;
-using CourseStore.Model.Courses.Entities;
-using CourseStore.Model.Tags.Commands;
-using CourseStore.Model.Tags.Entities;
+﻿
 using CourseWebApi.Model.Courses.Commands;
 using System.Diagnostics;
 

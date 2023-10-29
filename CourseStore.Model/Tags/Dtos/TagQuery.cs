@@ -1,4 +1,4 @@
-﻿namespace CourseStore.Model.Tags.Dtos;
+﻿namespace CourseWebApi.Model.Tags.Dtos;
 
 public class TagQuery
 {

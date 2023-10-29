@@ -1,8 +1,8 @@
-﻿using CourseStore.Model.Orders.Entities;
+﻿using CourseWebApi.Model.Orders.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CourseStore.DAL.Courses;
+namespace CourseWebApi.DAL.Orders;
 
 public class OrderConfig : IEntityTypeConfiguration<Order>
 {

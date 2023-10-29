@@ -1,12 +1,16 @@
-﻿using CourseStore.Model.Framework;
-using CourseStore.Model.Tags.Entities;
+﻿using CourseWebApi.Model.Framework;
+using CourseWebApi.Model.Tags.Entities;
 using MediatR;
 using System.ComponentModel.DataAnnotations;
 
-namespace CourseStore.Model.Tags.Commands;
+namespace CourseWebApi.Model.Tags.Commands;
 
 public class UpdateTag : IRequest<ApiResult<Tag>>
 {
+    public UpdateTag()
+    {
+
+    }
     public UpdateTag(int tagId, string tagName)
     {
         TagId = tagId;
