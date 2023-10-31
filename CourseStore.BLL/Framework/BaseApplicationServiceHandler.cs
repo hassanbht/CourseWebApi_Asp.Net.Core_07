@@ -9,7 +9,7 @@ public abstract class BaseApplicationServiceHandler<TRequest, TResult> : IReques
 {
 
     protected readonly IRepository<TResult> _repository;
-    protected ApiResult<TResult> _response = new ApiResult<TResult>(ApiResultStatusCode.ServerError,null);
+    protected ApiResult<TResult> _response = new ApiResult<TResult>();
 
 
     public BaseApplicationServiceHandler(IRepository<TResult> repository)

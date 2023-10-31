@@ -1,5 +1,7 @@
 ﻿using CourseWebApi.Model.Auth.Commands;
+using CourseWebApi.Model.Auth.Dtos;
 using CourseWebApi.Model.Auth.Queries;
+using CourseWebApi.Model.Framework;
 using CourseWebApi.WebAPI.Framework;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -12,14 +14,14 @@ public class AuthenticateController : BaseController
     {
     }
     [HttpPost("CreateUser")]
-    public async Task<IActionResult> CreateUser(CreateUserCommand createUser)
+    public async Task<ApiResult<AuthenticationResponse>> CreateUser(CreateUserCommand createUser)
     {
         var response = await _mediator.Send(createUser);
         return response.IsSuccess ? Ok(response.Result) : BadRequest(response.Errors);
     }
 
     [HttpPut("Login")]
-    public async Task<IActionResult> Login(LoginCommand user)
+    public async Task<ApiResult<AuthenticationResponse>> Login(LoginCommand user)
     {
         var response = await _mediator.Send(user);
         return response.IsSuccess ? Ok(response.Result) : BadRequest(response.Errors);
@@ -27,7 +29,7 @@ public class AuthenticateController : BaseController
 
 
     [HttpPost("GetRefreshToken")]
-    public async Task<IActionResult> GetRefreshToken(TokenQueriy token)
+    public async Task<ApiResult<TokenModel>> GetRefreshToken(TokenQueriy token)
     {
         var response = await _mediator.Send(token);
         return response.IsSuccess ? Ok(response.Result) : BadRequest(response.Errors);

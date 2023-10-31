@@ -7,7 +7,7 @@ namespace CourseWebApi.BLL.Framework
     public abstract class BaseAuthServiceHandler<TRequest, TResult> : IRequestHandler<TRequest, ApiResult<TResult>>
     where TRequest : IRequest<ApiResult<TResult>>
     {
-        protected ApiResult<TResult> _response = new ApiResult<TResult>(ApiResultStatusCode.UnAuthorized, null);
+        protected ApiResult<TResult> _response = new ApiResult<TResult>();
         protected readonly IAuthService _authService;
 
         public BaseAuthServiceHandler(IAuthService authService)

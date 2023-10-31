@@ -1,6 +1,7 @@
 ﻿using Azure;
 using CourseWebApi.Model.Framework;
 using CourseWebApi.Model.Tags.Commands;
+using CourseWebApi.Model.Tags.Entities;
 using CourseWebApi.Model.Tags.Queries;
 using CourseWebApi.WebAPI.Framework;
 using FluentValidation;
@@ -18,7 +19,7 @@ public class TagsController : BaseController
     {
     }
     [HttpPost("CreateTag")]
-    public async Task<ApiResult> CreateTag(CreateTag tag, IValidator<CreateTag> validator)
+    public async Task<ApiResult<Tag>> CreateTag(CreateTag tag, IValidator<CreateTag> validator)
     {
         ValidationResult result = await validator.ValidateAsync(tag);
 
@@ -31,7 +32,7 @@ public class TagsController : BaseController
     }
 
     [HttpPut("UpdateTag")]
-    public async Task<ApiResult> UpdateTag(UpdateTag tag, IValidator<UpdateTag> validator)
+    public async Task<ApiResult<Tag>> UpdateTag(UpdateTag tag, IValidator<UpdateTag> validator)
     {
         ValidationResult result = await validator.ValidateAsync(tag);
 
@@ -45,7 +46,7 @@ public class TagsController : BaseController
 
 
     [HttpGet("SearchTag")]
-    public async Task<ApiResult> SearchTag([FromQuery] FilterTagByName tag)
+    public async Task<ApiResult<ICollection<Tag>>> SearchTag([FromQuery] FilterTagByName tag)
     {
         var response = await _mediator.Send(tag);
         return response.IsSuccess ? Ok(response.Result) : BadRequest(response.Errors);

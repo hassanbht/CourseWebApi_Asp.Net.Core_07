@@ -38,7 +38,7 @@ namespace CourseWebApi.BLL.Auth.Services
             if (string.IsNullOrEmpty(user.UserName))
                 return new AuthenticationResponse
                 {
-                    Message = "Username / password incorrect"
+                    Message = "Username cannot be empty"
                 };
             var currentUser = await _userManager.FindByNameAsync(user.UserName);
             if (currentUser != null && await _userManager.CheckPasswordAsync(currentUser, user.Password!))
@@ -46,8 +46,8 @@ namespace CourseWebApi.BLL.Auth.Services
                 return await GenerateAuthenticationResponseForUserAsync(currentUser);
             }
             return new AuthenticationResponse
-            {
-                Message = "Username cannot be empty"
+            {                
+                 Message = "Username / password incorrect"
             };
         }
 

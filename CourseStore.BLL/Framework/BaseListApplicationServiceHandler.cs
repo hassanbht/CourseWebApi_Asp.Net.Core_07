@@ -8,7 +8,7 @@ public abstract class BaseListApplicationServiceHandler<TRequest, TResult> : IRe
     where TRequest : IRequest<ApiResult<ICollection<TResult>>> where TResult : BaseEntity
 {
     protected readonly IRepository<TResult> _repository;
-    protected ApiResult<TResult> _response = new ApiResult<TResult>(ApiResultStatusCode.ServerError, null);
+    protected ApiResult<TResult> _response = new ApiResult<TResult>();
     protected ApiResult<ICollection<TResult>> _responseList = new ApiResult<ICollection<TResult>>{ };
    
 
