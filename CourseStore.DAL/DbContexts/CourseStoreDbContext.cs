@@ -39,26 +39,26 @@ public class CourseStoreDbContext : DbContext
         modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
 
         #region Config Entity
-        modelBuilder.Entity<Course>().ToTable(c => c.IsTemporal());
-        modelBuilder.Ignore<Address>();
-        modelBuilder.Ignore<Car>();
-        modelBuilder.Entity<Teacher>().OwnsOne(t => t.Address, a =>
-         {
-             a.Property(p => p.Street).HasMaxLength(50);
-             a.Property(p => p.City).HasMaxLength(50);
-             a.Property(p => p.State).HasMaxLength(50);
-             a.Property(p => p.ZipCode).HasMaxLength(10);
-         });
+        //modelBuilder.Entity<Course>().ToTable(c => c.IsTemporal());
+        //modelBuilder.Ignore<Address>();
+        //modelBuilder.Ignore<Car>();
+        //modelBuilder.Entity<Teacher>().OwnsOne(t => t.Address, a =>
+        // {
+        //     a.Property(p => p.Street).HasMaxLength(50);
+        //     a.Property(p => p.City).HasMaxLength(50);
+        //     a.Property(p => p.State).HasMaxLength(50);
+        //     a.Property(p => p.ZipCode).HasMaxLength(10);
+        // });
 
-        modelBuilder.Entity<Teacher>().OwnsMany(t => t.Cars, a =>
-        {
-            a.Property(p => p.CarName).HasMaxLength(100);
-        });
-        modelBuilder.Ignore<PhoneNumber>();
-        modelBuilder.Entity<Student>().OwnsMany(t => t.PhoneNumbers, a =>
-        {
-            a.Property(p => p.Number).HasMaxLength(11).IsUnicode(false);
-        });
+        //modelBuilder.Entity<Teacher>().OwnsMany(t => t.Cars, a =>
+        //{
+        //    a.Property(p => p.CarName).HasMaxLength(100);
+        //});
+        //modelBuilder.Ignore<PhoneNumber>();
+        //modelBuilder.Entity<Student>().OwnsMany(t => t.PhoneNumbers, a =>
+        //{
+        //    a.Property(p => p.Number).HasMaxLength(11).IsUnicode(false);
+        //});
         #endregion
 
 

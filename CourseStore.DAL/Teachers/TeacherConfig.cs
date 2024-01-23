@@ -11,5 +11,16 @@ public class TeacherConfig : IEntityTypeConfiguration<Teacher>
         builder.Property(t => t.FirstName).IsRequired().HasMaxLength(50).IsUnicode();
         builder.Property(t => t.LastName).IsRequired().HasMaxLength(50).IsUnicode();
         builder.Property(c => c.FullName).HasComputedColumnSql("FirstName + ' ' + LastName", true).IsUnicode();
+        builder.OwnsOne(t => t.Address, a =>
+        {
+            a.Property(p => p.Street).HasMaxLength(50);
+            a.Property(p => p.City).HasMaxLength(50);
+            a.Property(p => p.State).HasMaxLength(50);
+            a.Property(p => p.ZipCode).HasMaxLength(10);
+        });
+        builder.OwnsMany(t => t.Cars, a =>
+        {
+            a.Property(p => p.CarName).HasMaxLength(100);
+        });
     }
 }
