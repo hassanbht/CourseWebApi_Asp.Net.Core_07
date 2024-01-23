@@ -91,16 +91,16 @@ namespace CourseWebApi.Test.Tag
             var tag = new UpdateTag(3,"aspnetcore_environment");
 
             // Act
-            var tagEntity = _mapper?.Map<Model.Tags.Entities.Tag>(tag);
+            var tagEntity = _mapper?.Map<Ent.Tag>(tag);
 
             // ASSERT 
             Assert.NotNull(tagEntity);
 
             // Arrange
-            await new DAL.Repositories.RepositoryDbContext<Model.Tags.Entities.Tag>(ctx).AddRangeAsync(MockDataHelper.GetFakeTagList(),new CancellationToken());
+            await new DAL.Repositories.RepositoryDbContext<Ent.Tag>(ctx).AddRangeAsync(MockDataHelper.GetFakeTagList(),new CancellationToken());
             tagEntity.TagName = "Edited";
             // Act
-            bool result = await new DAL.Repositories.RepositoryDbContext<Model.Tags.Entities.Tag>(ctx).Update(tagEntity);
+            bool result = await new DAL.Repositories.RepositoryDbContext<Ent.Tag>(ctx).Update(tagEntity);
 
             // ASSERT 
             Assert.True(result);
@@ -121,16 +121,16 @@ namespace CourseWebApi.Test.Tag
             if (val.IsValid)
             {
                 // Act
-                var tagEntity = _mapper?.Map<Model.Tags.Entities.Tag>(tag);
+                var tagEntity = _mapper?.Map<Ent.Tag>(tag);
 
                 // ASSERT 
                 Assert.NotNull(tagEntity);
 
                 // Arrange               
-                await new DAL.Repositories.RepositoryDbContext<Model.Tags.Entities.Tag>(ctx).AddRangeAsync(MockDataHelper.GetFakeTagList(), new CancellationToken());
+                await new DAL.Repositories.RepositoryDbContext<Ent.Tag>(ctx).AddRangeAsync(MockDataHelper.GetFakeTagList(), new CancellationToken());
                 tagEntity.TagName = "Edited";
                 // Act
-                bool result = await new DAL.Repositories.RepositoryDbContext<Model.Tags.Entities.Tag>(ctx).Update(tagEntity);
+                bool result = await new DAL.Repositories.RepositoryDbContext<Ent.Tag>(ctx).Update(tagEntity);
 
                 // ASSERT 
                 Assert.True(result);

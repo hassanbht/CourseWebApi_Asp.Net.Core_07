@@ -5,9 +5,9 @@ namespace CourseWebApi.DAL.Framework
 {
     public class UsernameInPasswordValidator : IPasswordValidator<ApplicationUser>
     {
-        public async Task<IdentityResult> ValidateAsync(UserManager<ApplicationUser> manager, ApplicationUser user, string password)
+        public async Task<IdentityResult> ValidateAsync(UserManager<ApplicationUser> manager, ApplicationUser user, string? password)
         {
-            if (password.Contains(user.UserName!, StringComparison.OrdinalIgnoreCase))
+            if (password!.Contains(user.UserName!, StringComparison.OrdinalIgnoreCase))
             {
                 return await Task.FromResult(IdentityResult.Failed(new IdentityError
                 {

@@ -56,13 +56,13 @@ namespace CourseWebApi.Test.Tag
             var tag = new CreateTag("aspnetcore_environment");
 
             // Act
-            var tagEntity = _mapper?.Map<Model.Tags.Entities.Tag>(tag);
+            var tagEntity = _mapper?.Map<Ent.Tag>(tag);
 
             // ASSERT 
             Assert.NotNull(tagEntity);
 
             // Act
-            bool result = await new DAL.Repositories.RepositoryDbContext<Model.Tags.Entities.Tag>(ctx).Add(_mapper?.Map<Model.Tags.Entities.Tag>(tag)!);
+            bool result = await new DAL.Repositories.RepositoryDbContext<Ent.Tag>(ctx).Add(_mapper?.Map<Ent.Tag>(tag)!);
 
             // ASSERT 
             Assert.True(result);
@@ -83,13 +83,13 @@ namespace CourseWebApi.Test.Tag
             if (val.IsValid)
             {
                 // Act
-                var tagEntity = _mapper?.Map<Model.Tags.Entities.Tag>(tag);
+                var tagEntity = _mapper?.Map<Ent.Tag>(tag);
 
                 // ASSERT 
                 Assert.NotNull(tagEntity);
 
                 // Act
-                bool result = await new DAL.Repositories.RepositoryDbContext<Model.Tags.Entities.Tag>(ctx).Add(_mapper?.Map<Model.Tags.Entities.Tag>(tag)!);
+                bool result = await new DAL.Repositories.RepositoryDbContext<Ent.Tag>(ctx).Add(_mapper?.Map<Ent.Tag>(tag)!);
 
                 // ASSERT 
                 Assert.True(result);
