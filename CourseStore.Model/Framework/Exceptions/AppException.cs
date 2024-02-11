@@ -39,52 +39,52 @@ namespace CourseWebApi.Model.Framework.Exceptions
         {
         }
 
-        public AppException(ApiResultStatusCode statusCode, string message, object additionalData)
+        public AppException(ApiResultStatusCode statusCode, string? message, object additionalData)
             : this(statusCode, message, HttpStatusCode.InternalServerError, additionalData)
         {
         }
 
-        public AppException(ApiResultStatusCode statusCode, string message, HttpStatusCode httpStatusCode)
+        public AppException(ApiResultStatusCode statusCode, string? message, HttpStatusCode httpStatusCode)
             : this(statusCode, message, httpStatusCode, null)
         {
         }
 
-        public AppException(ApiResultStatusCode statusCode, string message, HttpStatusCode httpStatusCode, object additionalData)
+        public AppException(ApiResultStatusCode statusCode, string? message, HttpStatusCode httpStatusCode, object additionalData)
             : this(statusCode, message, httpStatusCode, null, additionalData)
         {
         }
 
-        public AppException(string message, Exception exception)
+        public AppException(string? message, Exception exception)
             : this(ApiResultStatusCode.ServerError, message, exception)
         {
         }
 
-        public AppException(string message, Exception exception, object additionalData)
+        public AppException(string? message, Exception exception, object additionalData)
             : this(ApiResultStatusCode.ServerError, message, exception, additionalData)
         {
         }
 
-        public AppException(ApiResultStatusCode statusCode, string message, Exception exception)
+        public AppException(ApiResultStatusCode statusCode, string? message, Exception? exception)
             : this(statusCode, message, HttpStatusCode.InternalServerError, exception)
         {
         }
 
-        public AppException(ApiResultStatusCode statusCode, string message, Exception exception, object additionalData)
+        public AppException(ApiResultStatusCode statusCode, string? message, Exception exception, object additionalData)
             : this(statusCode, message, HttpStatusCode.InternalServerError, exception, additionalData)
         {
         }
 
-        public AppException(ApiResultStatusCode statusCode, string message, HttpStatusCode httpStatusCode, Exception exception)
+        public AppException(ApiResultStatusCode statusCode, string? message, HttpStatusCode httpStatusCode, Exception? exception)
             : this(statusCode, message, httpStatusCode, exception, null)
         {
         }
 
-        public AppException(ApiResultStatusCode statusCode, string message, HttpStatusCode httpStatusCode, Exception exception, object additionalData)
+        public AppException(ApiResultStatusCode statusCode, string? message, HttpStatusCode httpStatusCode, Exception? exception, object? additionalData)
             : base(message, exception)
         {
             ApiStatusCode = statusCode;
             HttpStatusCode = httpStatusCode;
-            AdditionalData = additionalData;
+            AdditionalData = additionalData ?? "";
         }
     }
 }

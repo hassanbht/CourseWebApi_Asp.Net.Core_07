@@ -1,16 +1,14 @@
-﻿using AutoMapper;
-using CourseWebApi.Model.Tags.Commands;
-using Ent = CourseWebApi.Model.Tags.Entities;
+﻿using CourseWebApi.Model.Tags.Commands;
 using CourseWebApi.Model.Tags.Profiles;
 using CourseWebApi.Model.Tags.Validations;
 using CourseWebApi.Test.Framework;
 using FluentValidation.TestHelper;
-using System.ComponentModel.DataAnnotations;
+using Ent = CourseWebApi.Model.Tags.Entities;
 
 namespace CourseWebApi.Test.Tag
 {
     public class CreateTagTest : BaseTest<TagProfile>
-    {        
+    {
         #region THEORY
         [Theory]
         [InlineData(null, 100)]
@@ -66,7 +64,7 @@ namespace CourseWebApi.Test.Tag
 
             // ASSERT 
             Assert.True(result);
-           
+
         }
 
         [Fact]
